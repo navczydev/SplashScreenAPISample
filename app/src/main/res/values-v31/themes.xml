@@ -16,7 +16,9 @@
         <!--        splash screen background color-->
         <item name="android:windowSplashScreenBackground">#004d28</item>
         <!--        provide animatedly drawable-->
-        <!--        <item name="android:windowSplashScreenAnimatedIcon"></item>-->
+        <item name="android:windowSplashScreenAnimatedIcon">
+            @drawable/splash_screen_animateable_icon
+        </item>
         <!--        max duration is 1000ms-->
         <item name="android:windowSplashScreenAnimationDuration">800</item>
         <!--splash screen branding image-->

@@ -1,0 +1,6 @@
+<animation-list xmlns:android="http://schemas.android.com/apk/res/android"
+    android:oneshot="true">
+    <item android:drawable="@drawable/ic_launcher_nav" android:duration="600" />
+    <item android:drawable="@drawable/api12_logo" android:duration="200" />
+    <item android:drawable="@drawable/ic_launcher_nav" android:duration="200" />
+</animation-list>

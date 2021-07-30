@@ -14,5 +14,7 @@
         <!-- Customize your theme here. -->
         <item name="android:windowBackground">@color/teal_700</item>
 
+
+
     </style>
 </resources>

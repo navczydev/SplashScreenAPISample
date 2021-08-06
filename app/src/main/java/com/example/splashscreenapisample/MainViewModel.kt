@@ -13,7 +13,7 @@ class MainViewModel : ViewModel() {
 
     fun mockDataLoading(): Boolean {
         viewModelScope.launch {
-            delay(5000)
+            delay(1000)
             dataLoaded = true
         }
         return dataLoaded

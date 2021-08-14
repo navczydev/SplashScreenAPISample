@@ -15,11 +15,11 @@ class RichContentReceiver(val contentResolver: (uri: Uri, source: Int) -> Unit) 
 
     companion object {
         val TAG: String = RichContentReceiver::class.java.simpleName
-        val MIME_TYPES = arrayOf("image/*", "video/*", "text/*")
+        val MIME_TYPES = arrayOf("image/*", "video/*")
     }
 
     override fun onReceiveContent(view: View, payload: ContentInfoCompat): ContentInfoCompat? {
-        Log.d(TAG, "onReceiveContent: ${payload.clip.description}")
+        Log.d(TAG, "onReceiveContent: $payload")
         val pair = payload.partition {
             it.uri != null
         }
@@ -28,7 +28,7 @@ class RichContentReceiver(val contentResolver: (uri: Uri, source: Int) -> Unit) 
             val clip: ClipData = pair.first.clip
             for (i in 0 until clip.itemCount) {
                 val uri = clip.getItemAt(i).uri
-                Log.e(TAG, "onReceiveContent: $uri")
+                Log.e(TAG, "onReceiveContent: ${clip.getItemAt(0)}")
                 // process the uri
                 contentResolver(uri, pair.first.source)
             }

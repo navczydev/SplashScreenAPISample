@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">SplashScreenAPISample</string>
-    <string name="splash_screen_sample">Splash screen sample</string>
+    <string name="splash_screen_sample">Rich content insertion API sample</string>
 </resources>

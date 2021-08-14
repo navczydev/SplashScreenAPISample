@@ -1,6 +1,7 @@
 package com.example.splashscreenapisample
 
 import android.animation.ObjectAnimator
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -35,47 +36,55 @@ class MainActivity : AppCompatActivity() {
         // get reference to EditText
         val appCompatEditText = findViewById<AppCompatEditText>(R.id.my_input)
         // It's used to process the content, onReceive will trigger this
-        val contentResolve: (uri: Uri, source: Int) -> Unit = { uri, source ->
-            val contentResolver = this.contentResolver
-            val mimeType = contentResolver.getType(uri)
-            Log.d(TAG, "contentResolve: $mimeType Source is $source")
-            // MimeTypeMap.getSingleton().getMimeTypeFromExtension()
-            // check the source content
-            when (source) {
-                ContentInfoCompat.SOURCE_APP -> {
-                    Log.d(TAG, "contentResolve: Source ${ContentInfoCompat.SOURCE_APP}")
+        val contentResolve: (uri: Uri, source: Int,) -> Unit =
+            { uri, source ->
+                val contentResolver = this.contentResolver
+                val mimeType = contentResolver.getType(uri)
+                Log.d(TAG, "contentResolve: $uri - mimetype $mimeType Source is $source")
+                // MimeTypeMap.getSingleton().getMimeTypeFromExtension()
+                // check the source content
+                when (source) {
+                    ContentInfoCompat.SOURCE_APP -> {
+                        Log.d(TAG, "contentResolve: Source ${ContentInfoCompat.SOURCE_APP}")
+                    }
+                    ContentInfoCompat.SOURCE_CLIPBOARD -> {
+                        Log.d(TAG, "contentResolve: Source ${ContentInfoCompat.SOURCE_CLIPBOARD}")
+                    }
+                    ContentInfoCompat.SOURCE_DRAG_AND_DROP -> {
+                        Log.d(
+                            TAG,
+                            "contentResolve: Source ${ContentInfoCompat.SOURCE_DRAG_AND_DROP}"
+                        )
+                    }
+                    ContentInfoCompat.SOURCE_INPUT_METHOD -> {
+                        Log.d(
+                            TAG,
+                            "contentResolve: Source ${ContentInfoCompat.SOURCE_INPUT_METHOD}"
+                        )
+                    }
                 }
-                ContentInfoCompat.SOURCE_CLIPBOARD -> {
-                    Log.d(TAG, "contentResolve: Source ${ContentInfoCompat.SOURCE_CLIPBOARD}")
-                }
-                ContentInfoCompat.SOURCE_DRAG_AND_DROP -> {
-                    Log.d(TAG, "contentResolve: Source ${ContentInfoCompat.SOURCE_DRAG_AND_DROP}")
-                }
-                ContentInfoCompat.SOURCE_INPUT_METHOD -> {
-                    Log.d(TAG, "contentResolve: Source ${ContentInfoCompat.SOURCE_INPUT_METHOD}")
-                }
-            }
 
-            when {
-                mimeType?.contains("image/") == true -> {
-                    // process image
-                    Log.d(TAG, "onCreate: LOAD_IMAGE")
-                    val imageView = findViewById<ImageView>(R.id.image_holder)
-                    imageView.apply {
-                        isVisible = true
-                        load(uri)
+                when {
+                    mimeType?.contains("image/") == true -> {
+                        // process image
+                        Log.d(TAG, "onCreate: LOAD_IMAGE")
+
+                        val imageView = findViewById<ImageView>(R.id.image_holder)
+                        imageView.apply {
+                            isVisible = true
+                            load(uri)
+                        }
                     }
-                }
-                mimeType?.contains("video/") == true -> {
-                    // process video
-                    val videoView = findViewById<VideoView>(R.id.video_holder)
-                    videoView.apply {
-                        isVisible = true
-                        this.setVideoURI(uri)
+                    mimeType?.contains("video/") == true -> {
+                        // process video
+                        val videoView = findViewById<VideoView>(R.id.video_holder)
+                        videoView.apply {
+                            isVisible = true
+                            this.setVideoURI(uri)
+                        }
                     }
                 }
             }
-        }
         // add [OnReceiveContentListener] to appCompatEditText
         ViewCompat.setOnReceiveContentListener(
             appCompatEditText,

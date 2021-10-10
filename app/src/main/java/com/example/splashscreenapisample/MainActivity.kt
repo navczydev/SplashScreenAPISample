@@ -16,10 +16,11 @@ import android.view.View
 import android.view.ViewTreeObserver
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.AppCompatButton
 import androidx.core.animation.doOnEnd
 import androidx.lifecycle.ViewModelProvider
 import com.example.splashscreenapisample.alarmreceiver.AlarmReceiver
+import com.example.splashscreenapisample.databinding.ActivityMainBinding
+
 
 /**
  * @author Nav Singh
@@ -27,9 +28,12 @@ import com.example.splashscreenapisample.alarmreceiver.AlarmReceiver
 class MainActivity : AppCompatActivity() {
     lateinit var content: View
     lateinit var mainViewModel: MainViewModel
+    private lateinit var activityMainBinding: ActivityMainBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        activityMainBinding = ActivityMainBinding.inflate(layoutInflater).also {
+            setContentView(it.root)
+        }
         mainViewModel = ViewModelProvider(this).get(MainViewModel::class.java)
         content = findViewById(android.R.id.content)
         // splash screen related code 
@@ -69,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Exact alarm changes
-        findViewById<AppCompatButton>(R.id.button_start_alarm).setOnClickListener {
+        activityMainBinding.buttonStartAlarm.setOnClickListener {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
                 // check and set alarms
                 val alarmManager: AlarmManager =
@@ -77,7 +81,11 @@ class MainActivity : AppCompatActivity() {
                 when {
                     alarmManager.canScheduleExactAlarms() -> {
                         // Use to showcase the UX improvements in Android12
-                        Toast.makeText(this, getString(R.string.alarm_toast_message), Toast.LENGTH_LONG).show()
+                        Toast.makeText(
+                            this,
+                            getString(R.string.alarm_toast_message),
+                            Toast.LENGTH_LONG
+                        ).show()
                         val alarmIntent =
                             Intent(applicationContext, AlarmReceiver::class.java).let {
                                 it.apply { action = getString(R.string.alarm_intent_action) }
@@ -105,5 +113,10 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         }
+
+        activityMainBinding.buttonSendNotification.setOnClickListener {
+            sendNotification(this)
+        }
     }
+
 }

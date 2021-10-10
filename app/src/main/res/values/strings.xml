@@ -7,4 +7,6 @@
     <string name="alarm_toast_message">YES SET EXACT ALARM</string>
     <string name="alarm_intent_action">from alarm</string>
     <string name="android_12_logo">android 12 logo</string>
+    <string name="send_notification">Send Notification</string>
+    <string name="hello_from_activity2">Hello from Activity2</string>
 </resources>

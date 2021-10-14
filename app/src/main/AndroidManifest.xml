@@ -11,7 +11,9 @@
         android:roundIcon="@drawable/ic_launcher_nav"
         android:supportsRtl="true"
         android:theme="@style/Theme.SplashScreenAPISample">
-        <activity android:name=".NotificationTrampolineActivity" />
+        <activity
+            android:name=".NotificationTrampolineActivity"
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

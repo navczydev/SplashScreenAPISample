@@ -22,7 +22,7 @@ class BaseApplication : Application(), LifecycleEventObserver {
     override fun onStateChanged(source: LifecycleOwner, event: Lifecycle.Event) {
         when (event) {
             Lifecycle.Event.ON_STOP -> {
-                Thread.sleep(5000)
+//                Thread.sleep(5000)
                 when {
                     Build.VERSION.SDK_INT >= Build.VERSION_CODES.O -> {
                         this.startForegroundService(Intent(this, ForegroundService::class.java))

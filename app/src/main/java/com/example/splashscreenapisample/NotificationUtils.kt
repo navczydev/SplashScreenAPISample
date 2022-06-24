@@ -44,15 +44,17 @@ fun sendNotification(context: Context) {
         // Add the intent, which inflates the back stack
         addNextIntentWithParentStack(notificationTrampolineActivityIntent)
         // Get the PendingIntent containing the entire back stack
-        getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_IMMUTABLE)
+        getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT or
+                // mutability flag required when targeting Android12 or higher
+                PendingIntent.FLAG_IMMUTABLE)
     }
 
     val notification = NotificationCompat.Builder(context, NOTIFICATION_CHANNEL_ID)
         .setSmallIcon(R.mipmap.ic_launcher)
         .setContentTitle("Android12")
         .setContentText("Notification trampoline restrictions")
-//        .addAction(R.mipmap.ic_launcher, "Open activity from receiver", actionIntent)
-        .addAction(R.mipmap.ic_launcher, "Open activity from receiver", resultPendingIntent)
+        .addAction(R.mipmap.ic_launcher, "Open activity from receiver", actionIntent)
+      //  .addAction(R.mipmap.ic_launcher, "Open activity from receiver", resultPendingIntent)
         .setAutoCancel(true)
         .build()
 
